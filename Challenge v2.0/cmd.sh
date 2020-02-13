@@ -1,1 +1,0 @@
-cd /vagrant && PYTHONUNBUFFERED=1 ANSIBLE_NOCOLOR=true ANSIBLE_CONFIG='/vagrant/ansible.cfg' ansible-playbook --limit="all" --inventory-file=/vagrant/inventory/challenge -v /vagrant/user-centos.yml
