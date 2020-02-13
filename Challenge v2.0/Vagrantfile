@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+	config.vm.provision "shell", inline: "echo Done"
+	N = 4
+	(1..N).each do |vm_id|
+		config.vm.define "machine#{vm_id}" do |configure|
+			configure.vm.hostname = "CHALLENGE-#{vm_id}"
+			configure.vm.box = "centos/7"
+			configure.vm.box_version = "1905.1"
+			configure.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", ip: "10.10.16.#{20+vm_id}"
+		end
+	end
+	
+	config.vm.define "ansible" do |auto|
+		auto.vm.hostname = "HOST-ANSIBLE"
+		auto.vm.box = "jumperfly/centos-7-ansible"
+		auto.vm.box_version = "1902.01.01"
+		auto.vm.network "public_network", bridge: "Intel(R) Ethernet Connection I217-LM", ip: "10.10.16.30"
+		auto.vm.provision "shell", path: "copy_key.sh"
+		auto.vm.provision "ansible_local" do |ansible|
+			ansible.limit = "all"
+			ansible.config_file = "/vagrant/ansible.cfg"
+			ansible.playbook = "/vagrant/user-centos.yml"
+			ansible.inventory_path = "/vagrant/inventory/challenge"
+			ansible.verbose = true
+		end
+	end
+	
+end

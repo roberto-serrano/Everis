@@ -1,0 +1,5 @@
+[challenge]
+machine1: ansible_host=10.10.16.21 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/tmp/machine1/private_key
+machine2: ansible_host=10.10.16.22 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/tmp/machine2/private_key
+machine3: ansible_host=10.10.16.23 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/tmp/machine3/private_key
+machine4: ansible_host=10.10.16.24 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/tmp/machine4/private_key
